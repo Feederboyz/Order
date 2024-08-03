@@ -1,0 +1,32 @@
+@import "../theme.scss";
+
+#header {
+    height: 55px;
+    background-color: $background-color-dark;
+    border-bottom: 3px solid $header-border-color;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+#header .header__spacer {
+    flex-grow: 1;
+}
+
+#header .header__avatar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+}
+
+#header .header__avatar {
+    width: 80%;
+    height: 80%;
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 50%;
+    object-fit: cover;
+}

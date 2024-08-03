@@ -1,0 +1,39 @@
+.sidebarBtn {
+    position: relative;
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.sidebarBtn > div {
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: #543310;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebarBtn > div:nth-child(1) {
+    top: 4px;
+}
+.sidebarBtn > div:nth-child(2) {
+    top: 15px;
+}
+.sidebarBtn > div:nth-child(3) {
+    top: 26px;
+}
+
+.sidebarBtn > div:nth-child(1).sidebarBtn__active {
+    top: 15px;
+    transform: rotate(45deg);
+}
+
+.sidebarBtn > div:nth-child(2).sidebarBtn__active {
+    display: none;
+}
+
+.sidebarBtn > div:nth-child(3).sidebarBtn__active {
+    top: 15px;
+    transform: rotate(-45deg);
+}

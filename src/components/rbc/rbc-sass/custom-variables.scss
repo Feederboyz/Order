@@ -1,0 +1,19 @@
+@import "../../theme.scss";
+
+$out-of-range-color: white;
+$out-of-range-bg-color: $background-color-dark;
+
+$calendar-border: $border-color;
+$cell-border: $border-color;
+
+$btn-color: $button-color;
+$btn-bg: $background-color-light;
+$btn-border: $border-color;
+
+// $today-highlight-bg: #f5e9e9;
+$today-highlight-bg: $color5;
+
+$event-bg: $color6;
+$event-color: #fff;
+$event-border-radius: 10px;
+$event-outline: $color7;

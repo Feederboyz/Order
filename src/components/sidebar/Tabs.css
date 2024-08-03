@@ -1,0 +1,19 @@
+.tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.tab {
+    width: 200px;
+    padding: 10px;
+    cursor: pointer;
+    border: 3px solid #000;
+    border-width: 3px 3px 0 3px;
+    border-radius: 10px 10px 0 0;
+}
+
+.active-tab {
+    background-color: #000;
+    color: #fff;
+}

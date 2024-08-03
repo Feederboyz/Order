@@ -1,0 +1,28 @@
+@import "../theme.scss";
+
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100%;
+    /* overflow: hidden; */
+}
+
+.container-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container-content__header {
+    height: 50px;
+}
+
+.container-content__body {
+    background-color: $background-color-light;
+    padding: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+    position: relative;
+}

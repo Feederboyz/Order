@@ -1,0 +1,22 @@
+@import "../../theme.scss";
+
+.rbc-month-header > .rbc-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    background-color: $background-color-dark;
+}
+
+.rbc-agenda-table .rbc-header {
+    padding: 5px 10px !important;
+    background-color: $background-color-dark;
+}
+
+.rbc-event {
+    border: 1px solid $color4;
+}
+
+.rbc-event:hover {
+    background-color: darken($color6, 10%);
+}

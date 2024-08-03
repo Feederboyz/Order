@@ -1,0 +1,20 @@
+.rbc-calendar {
+    padding: 10px;
+    background-color: #f8f4e1;
+}
+
+.rbc-off-range-bg {
+    background-color: #af8f6f;
+}
+
+.rbc-off-range {
+    color: white;
+}
+
+.rbc-today {
+    background-color: #dbb5b5;
+}
+
+.rbc-month-row {
+    border-top-color: #543310;
+}
