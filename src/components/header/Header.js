@@ -1,13 +1,13 @@
 import "./Header.scss";
 import { useUser } from "../../contexts/UserContext";
-import SidebarBtn from "../sidebar/SidebarBtn";
+import HeaderBtn from "./HeaderBtn";
 export default function Header({ isHideSidebar, onClick }) {
     const { user } = useUser();
 
     return (
         <div id="header">
-            <SidebarBtn onClick={onClick} isCross={!isHideSidebar} />
-            <div className="header__spacer"></div>
+            <HeaderBtn onClick={onClick} isCross={!isHideSidebar} />
+            <div style={{ flexGrow: 1 }} />
             {user.isLoggedIn && (
                 <div className="header__avatar-container">
                     <img

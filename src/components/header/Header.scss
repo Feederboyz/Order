@@ -1,16 +1,13 @@
 @import "../theme.scss";
 
 #header {
-    height: 55px;
+    height: 60px;
     background-color: $background-color-dark;
     border-bottom: 3px solid $header-border-color;
+    padding: 0px 5px;
     display: flex;
     justify-content: start;
     align-items: center;
-}
-
-#header .header__spacer {
-    flex-grow: 1;
 }
 
 #header .header__avatar-container {

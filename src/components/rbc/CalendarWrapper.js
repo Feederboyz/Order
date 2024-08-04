@@ -1,38 +1,38 @@
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { useCallback, useRef, useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
 import moment from "moment";
-import MyModal from "./MyModal";
+import CalendarModal from "./CalendarModal";
 import "./rbc-sass/styles.scss";
 
 const localizer = momentLocalizer(moment);
 
-export default function InteractiveCalendar() {
+export default function CalendarWrapper() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState(null);
-    const [courses, setCourses] = useState([]);
-    const { user } = useUser();
     const [enroll, setEnroll] = useState([]);
+    const [courses, setCourses] = useState([]);
     const [filteredCourses, setFilteredCourses] = useState([]);
-    const activeTab = useOutletContext();
+    const { user } = useUser();
+    const { tabType } = useParams();
 
     useEffect(() => {
-        if (activeTab === "My Class") {
+        if (tabType === "my-class") {
             const courseIdSet = new Set(
                 enroll.map((course) => course.courseId)
             );
             setFilteredCourses(
                 courses.filter((course) => courseIdSet.has(course.id))
             );
-        } else if (activeTab === "Delete Class") {
+        } else if (tabType === "delete-class") {
             setFilteredCourses(
                 courses.filter((course) => course.teacherId === user.userId)
             );
         } else {
             setFilteredCourses(courses);
         }
-    }, [activeTab, courses, enroll]);
+    }, [tabType, courses, enroll, user]);
 
     useEffect(() => {
         async function fetchCourses() {
@@ -92,7 +92,7 @@ export default function InteractiveCalendar() {
 
     const handleSelectEvent = useCallback(
         (calendarEvent) => {
-            if (activeTab === "Order Class" || activeTab === "Delete Class") {
+            if (tabType === "order-class" || tabType === "delete-class") {
                 window.clearTimeout(clickRef?.current);
                 clickRef.current = window.setTimeout(() => {
                     setSelectedEvent(calendarEvent);
@@ -100,12 +100,12 @@ export default function InteractiveCalendar() {
                 }, 250);
             }
         },
-        [activeTab]
+        [tabType]
     );
 
     const handleSelectSlot = useCallback(
         (slotInfo) => {
-            if (activeTab === "Open Class") {
+            if (tabType === "open-class") {
                 window.clearTimeout(clickRef?.current);
                 const event = {
                     id: "",
@@ -121,12 +121,28 @@ export default function InteractiveCalendar() {
                 }, 250);
             }
         },
-        [activeTab]
+        [tabType]
     );
-
+    function tabType2Header(tabType) {
+        switch (tabType) {
+            case "open-class":
+                return "Open Class";
+            case "order-class":
+                return "Order Class";
+            case "delete-class":
+                return "Delete Class";
+            case "my-class":
+                return "My Class";
+            default:
+                return "";
+        }
+    }
     return (
         <>
-            {activeTab && (
+            <div className="rbc__title">
+                <h2>{tabType2Header(tabType)}</h2>
+            </div>
+            {tabType && (
                 <Calendar
                     localizer={localizer}
                     events={filteredCourses}
@@ -145,11 +161,11 @@ export default function InteractiveCalendar() {
                     selectable={true}
                 />
             )}
-            <MyModal
+            <CalendarModal
                 courses={courses}
-                setEnroll={setEnroll}
-                enroll={enroll}
                 setCourses={setCourses}
+                enroll={enroll}
+                setEnroll={setEnroll}
                 selectedEvent={selectedEvent}
                 setSelectedEvent={setSelectedEvent}
                 isOpen={isModalOpen}

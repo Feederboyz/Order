@@ -31,7 +31,7 @@ export default function AuthCode() {
         setTimeout(() => {
             window.close();
         }, 3000);
-    }, []);
+    }, [query]);
 
     return (
         <>

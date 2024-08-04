@@ -1,16 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-const UserContext = createContext({
-    user: {
-        userId: "",
-        isLoggedIn: false,
-        username: "",
-        email: "",
-        is_teacher: false,
-        avatar: "",
-    },
-    setUser: () => {},
-});
+const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState({

@@ -20,3 +20,9 @@
 .rbc-event:hover {
     background-color: darken($color6, 10%);
 }
+
+.rbc__title {
+    display: flex;
+    justify-content: center;
+    color: $header-color;
+}

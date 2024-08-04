@@ -14,45 +14,44 @@
     transition: 0.5s ease;
     padding: 5px;
 }
+
 #sidebar.sidebar__hide {
     margin-left: -200px;
 }
 
-#sidebar button {
-    font-size: 1.1em;
-    color: $button-color;
-    background-color: $background-color-light;
-    display: block;
-    width: 100%;
-    border: none;
-    height: 40px;
-    border-radius: 10px;
-}
-
-#sidebar button:hover {
-    color: white;
-    background-color: $background-color-dark;
-    border: 1px solid $border-color;
-    cursor: pointer;
-}
-
-#sidebar .sidebar-menu,
-#sidebar .sidebar-bottom {
-    display: flex;
-    flex-direction: column;
-}
-
-#sidebar .sidebar-menu {
-    flex-grow: 1;
-}
-
-#sidebar .sidebar-hr > hr {
+#sidebar-hr {
     border: 0;
     border-top: 3px solid $border-color;
     margin: 10px;
 }
 
-#sidebar .sidebar-button__active {
-    color: $sidebar-active-button-color;
-    font-weight: bold;
+.sidebar__label {
+    padding-left: 10px;
+}
+
+.sidebar__button,
+.sidebar__dropdownLink {
+    font-family: Arial;
+    display: flex;
+    color: $button-color;
+    background-color: $background-color-light;
+    border: none;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    list-style: none;
+    height: 60px;
+    text-decoration: none;
+    font-size: 18px;
+
+    &:hover {
+        background-color: $hover-background-color;
+        color: $hover-color;
+        border-left: 4px solid $border-color;
+        cursor: pointer;
+    }
+}
+
+.sidebar__dropdownLink {
+    padding-left: 30px;
 }

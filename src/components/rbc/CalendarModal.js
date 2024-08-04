@@ -1,7 +1,8 @@
 import Modal from "react-modal";
 import moment from "moment";
-import { useOutletContext } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
+import "./CalendarModal.scss";
 Modal.setAppElement("#root");
 function getIsoDate(date) {
     if (!date) {
@@ -10,7 +11,7 @@ function getIsoDate(date) {
     return moment(date).format("YYYY-MM-DDThh:mm");
 }
 
-function MyModal({
+function CalendarModal({
     courses,
     setCourses,
     enroll,
@@ -20,25 +21,13 @@ function MyModal({
     setSelectedEvent,
     isOpen,
 }) {
+    const { tabType } = useParams();
+    const { user } = useUser();
+
     const handleModalClose = () => {
         setIsModalOpen(false);
     };
-    const activeTab = useOutletContext();
-    const { user } = useUser();
 
-    const customStyles = {
-        content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            transform: "translate(-50%, -50%)",
-        },
-        overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            zIndex: 100,
-        },
-    };
     const handleInputChange = (event) => {
         let { name, value } = event.target;
         if (name === "startTime" || name === "endTime") {
@@ -117,11 +106,11 @@ function MyModal({
     };
 
     const handleSubmit = (event) => {
-        if (activeTab === "Open Class") {
+        if (tabType === "open-class") {
             handleOpenClass(event);
-        } else if (activeTab === "Order Class") {
+        } else if (tabType === "order-class") {
             handleOrderClass(event);
-        } else if (activeTab === "Delete Class") {
+        } else if (tabType === "delete-class") {
             handleDeleteClass(event);
         }
     };
@@ -159,17 +148,16 @@ function MyModal({
     let userTag = (
         <div>
             <label htmlFor="user">
-                {activeTab === "Open Class" || activeTab === "Delete Class"
-                    ? "老師"
-                    : "學生"}
-                :
+                {tabType === "open-class" || tabType === "delete-class"
+                    ? "Teacher"
+                    : "Student"}
             </label>
             <input
                 type="text"
                 id="user"
                 name="user"
                 value={
-                    activeTab === "Open Class"
+                    tabType === "open-class"
                         ? user.username
                         : selectedEvent && selectedEvent.username
                 }
@@ -180,46 +168,46 @@ function MyModal({
     );
     let courseTag = (
         <div>
-            <label htmlFor="courseName">課程名稱:</label>
+            <label htmlFor="courseName">Course name</label>
             <input
                 type="text"
                 id="courseName"
                 name="courseName"
                 value={selectedEvent && selectedEvent.courseName}
                 onChange={handleInputChange}
-                readOnly={activeTab === "Open Class" ? false : true}
+                readOnly={tabType === "open-class" ? false : true}
             />
         </div>
     );
     let startTag = (
         <div>
-            <label htmlFor="startTime">開始:</label>
+            <label htmlFor="startTime">Start</label>
             <input
                 type="datetime-local"
                 id="startTime"
                 name="startTime"
                 value={selectedEvent && getIsoDate(selectedEvent.startTime)}
                 onChange={handleInputChange}
-                readOnly={activeTab === "Open Class" ? false : true}
+                readOnly={tabType === "open-class" ? false : true}
             />
         </div>
     );
     let endTag = (
         <div>
-            <label htmlFor="endTime">結束:</label>
+            <label htmlFor="endTime">End</label>
             <input
                 type="datetime-local"
                 id="endTime"
                 name="endTime"
                 value={selectedEvent && getIsoDate(selectedEvent.endTime)}
                 onChange={handleInputChange}
-                readOnly={activeTab === "Open Class" ? false : true}
+                readOnly={tabType === "open-class" ? false : true}
             />
         </div>
     );
     let maxStudentsTag = (
         <div>
-            <label htmlFor="maxStudents">最大人數:</label>
+            <label htmlFor="maxStudents">Maximum number</label>
             <input
                 type="number"
                 min="1"
@@ -228,7 +216,7 @@ function MyModal({
                 name="maxStudents"
                 value={selectedEvent && selectedEvent.maxStudents}
                 onChange={handleInputChange}
-                readOnly={activeTab === "Open Class" ? false : true}
+                readOnly={tabType === "open-class" ? false : true}
             />
         </div>
     );
@@ -243,9 +231,11 @@ function MyModal({
         <Modal
             isOpen={isOpen}
             // onRequestClose={handleModalClose}
-            style={customStyles}
+            id="calendar-model"
+            className="calendar-modal"
+            overlayClassName="calendar-modal__overlay"
         >
-            <form onSubmit={handleSubmit}>
+            <form id="calendar-model__form" onSubmit={handleSubmit}>
                 {userTag}
                 {courseTag}
                 {startTag}
@@ -258,4 +248,4 @@ function MyModal({
     );
 }
 
-export default MyModal;
+export default CalendarModal;

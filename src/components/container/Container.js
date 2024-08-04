@@ -3,12 +3,10 @@ import { useState, useEffect } from "react";
 import { useUser } from "../../contexts/UserContext";
 import Sidebar from "../sidebar/Sidebar";
 import Header from "../header/Header";
-// import Loading from "./Loading.js";
 import "./Container.scss";
 
 export default function Container() {
     const [isHideSidebar, setIsHideSidebar] = useState(false);
-    const [activeTab, setActiveTab] = useState("");
     const { setUser } = useUser();
     const [token, setToken] = useState(localStorage.getItem("token") || "");
     const navigate = useNavigate();
@@ -26,6 +24,7 @@ export default function Container() {
         };
     }, []);
 
+    // Get user data
     useEffect(() => {
         if (token) {
             fetch("https://localhost:3080/profile", {
@@ -38,7 +37,6 @@ export default function Container() {
             })
                 .then((response) => {
                     if (!response.ok) {
-                        console.log(response.status);
                         throw new Error("Network response was not ok");
                     }
                     return response.json();
@@ -72,11 +70,7 @@ export default function Container() {
 
     return (
         <div className="container">
-            <Sidebar
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-                isHide={isHideSidebar}
-            />
+            <Sidebar isHide={isHideSidebar} />
             <div className="container-content">
                 <Header
                     isHideSidebar={isHideSidebar}
@@ -85,7 +79,7 @@ export default function Container() {
                     }}
                 />
                 <div className="container-content__body">
-                    <Outlet context={activeTab} />
+                    <Outlet />
                 </div>
             </div>
         </div>

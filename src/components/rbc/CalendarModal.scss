@@ -1,0 +1,54 @@
+@import "../theme.scss";
+
+.calendar-modal {
+    width: 400px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    background-color: $background-color-light;
+    border-radius: 10px;
+    padding: 20px;
+    color: $button-color;
+    font-family: Arial;
+}
+
+.calendar-modal__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+#calendar-model__form > div {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+#calendar-model input {
+    flex-grow: 1;
+    margin-left: 5px;
+}
+
+#calendar-model button {
+    font-family: Arial;
+    color: $button-color;
+    background-color: $background-color-dark;
+    display: block;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    width: 100%;
+    text-decoration: none;
+    font-size: 1em;
+
+    &:hover {
+        color: $hover-color;
+        cursor: pointer;
+    }
+}
