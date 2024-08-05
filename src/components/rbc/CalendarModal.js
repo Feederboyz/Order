@@ -93,14 +93,14 @@ function CalendarModal({
 
             if (response.ok) {
                 setEnroll([...enroll, newEnrollment]);
-                alert("報名成功!");
+                alert("Sign up successful!");
                 handleModalClose();
             } else {
-                throw new Error("報名失敗");
+                throw new Error("Sign up failed");
             }
         } catch (error) {
             console.error("Error:", error);
-            alert("報名失敗");
+            alert("Sign up failed");
             handleModalClose();
         }
     };
@@ -133,14 +133,14 @@ function CalendarModal({
                     (course) => course.id !== selectedEvent.id
                 );
                 setCourses(newCourses);
-                alert("刪除成功!");
+                alert("Delete successful!");
                 handleModalClose();
             } else {
-                throw new Error("刪除失敗");
+                throw new Error("Delete failed");
             }
         } catch (error) {
             console.error("Error:", error);
-            alert("刪除失敗");
+            alert("Delete failed");
             handleModalClose();
         }
     };

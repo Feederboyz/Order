@@ -5,6 +5,7 @@ import Signup from "./components/auth/Signup";
 import Container from "./components/container/Container";
 import AuthCode from "./components/auth/AuthCode";
 import { UserProvider } from "./contexts/UserContext";
+import "./App.scss";
 
 function App() {
     const router = createBrowserRouter([

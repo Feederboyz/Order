@@ -2,6 +2,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import { useCallback, useRef, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
+import PermissionOverlay from "../overlay/PermissionOverlay";
 import moment from "moment";
 import CalendarModal from "./CalendarModal";
 import "./rbc-sass/styles.scss";
@@ -123,6 +124,14 @@ export default function CalendarWrapper() {
         },
         [tabType]
     );
+    function isValidTabType(tabType) {
+        return [
+            "open-class",
+            "order-class",
+            "delete-class",
+            "my-class",
+        ].includes(tabType);
+    }
     function tabType2Header(tabType) {
         switch (tabType) {
             case "open-class":
@@ -139,38 +148,50 @@ export default function CalendarWrapper() {
     }
     return (
         <>
-            <div className="rbc__title">
-                <h2>{tabType2Header(tabType)}</h2>
-            </div>
-            {tabType && (
-                <Calendar
-                    localizer={localizer}
-                    events={filteredCourses}
-                    titleAccessor="courseName"
-                    startAccessor="startTime"
-                    endAccessor="endTime"
-                    onSelectSlot={handleSelectSlot}
-                    onSelectEvent={handleSelectEvent}
-                    style={{ height: 500 }}
-                    views={{
-                        month: true,
-                        // week: true,
-                        day: false,
-                        agenda: true,
-                    }}
-                    selectable={true}
-                />
+            {user.isLoggedIn ? (
+                isValidTabType(tabType) && (
+                    <>
+                        <div className="rbc__title">
+                            <h2>{tabType2Header(tabType)}</h2>
+                        </div>
+                        <Calendar
+                            localizer={localizer}
+                            events={filteredCourses}
+                            titleAccessor="courseName"
+                            startAccessor="startTime"
+                            endAccessor="endTime"
+                            onSelectSlot={handleSelectSlot}
+                            onSelectEvent={handleSelectEvent}
+                            style={{ height: 500 }}
+                            views={{
+                                month: true,
+                                // week: true,
+                                day: false,
+                                agenda: true,
+                            }}
+                            selectable={true}
+                        />
+                        <CalendarModal
+                            courses={courses}
+                            setCourses={setCourses}
+                            enroll={enroll}
+                            setEnroll={setEnroll}
+                            selectedEvent={selectedEvent}
+                            setSelectedEvent={setSelectedEvent}
+                            isOpen={isModalOpen}
+                            setIsModalOpen={setIsModalOpen}
+                        />
+                    </>
+                )
+            ) : (
+                <PermissionOverlay>
+                    <h1>Permission Denied</h1>
+                    <p>
+                        You do not have permission to access this page. Please
+                        login to continue.
+                    </p>
+                </PermissionOverlay>
             )}
-            <CalendarModal
-                courses={courses}
-                setCourses={setCourses}
-                enroll={enroll}
-                setEnroll={setEnroll}
-                selectedEvent={selectedEvent}
-                setSelectedEvent={setSelectedEvent}
-                isOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-            />
         </>
     );
 }
