@@ -12,6 +12,7 @@ export default function Login() {
     const [submitError, setSubmitError] = useState("");
     const navigate = useNavigate();
     const { setUser } = useUser();
+    const BACKEND_URL = "https://localhost:3080/";
 
     const validateAccount = () => {
         setEmailError("");
@@ -45,7 +46,7 @@ export default function Login() {
         event.preventDefault();
         if (validateAccount()) {
             try {
-                const response = await fetch("https://localhost:3080/auth", {
+                const response = await fetch(`${BACKEND_URL}auth`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

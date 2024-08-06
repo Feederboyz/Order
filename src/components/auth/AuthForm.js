@@ -114,6 +114,8 @@ export function LoginForm({
                         <input
                             value={email}
                             name="email"
+                            type="username"
+                            autoComplete="username"
                             placeholder="Enter your email"
                             onChange={(event) => setEmail(event.target.value)}
                             className={"authform__input-box"}
@@ -129,6 +131,7 @@ export function LoginForm({
                             value={password}
                             name="password"
                             type="password"
+                            autoComplete="current-password"
                             placeholder="Enter your password"
                             onChange={(event) =>
                                 setPassword(event.target.value)

@@ -17,6 +17,7 @@ export default function CalendarWrapper() {
     const [filteredCourses, setFilteredCourses] = useState([]);
     const { user } = useUser();
     const { tabType } = useParams();
+    const BACKEND_URL = "https://localhost:3080/";
 
     useEffect(() => {
         if (tabType === "my-class") {
@@ -37,7 +38,7 @@ export default function CalendarWrapper() {
 
     useEffect(() => {
         async function fetchCourses() {
-            let result = await fetch("https://localhost:3080/courses", {
+            let result = await fetch(`${BACKEND_URL}courses`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -63,7 +64,7 @@ export default function CalendarWrapper() {
     useEffect(() => {
         async function fetchEnroll(userId) {
             let result = await fetch(
-                `https://localhost:3080/enroll?studentid=${userId}`,
+                `${BACKEND_URL}/enroll?studentid=${userId}`,
                 {
                     method: "GET",
                     headers: {
