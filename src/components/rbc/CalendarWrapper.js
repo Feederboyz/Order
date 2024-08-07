@@ -38,7 +38,7 @@ export default function CalendarWrapper() {
     useEffect(() => {
         async function fetchCourses() {
             let result = await fetch(
-                `${process.env.REACT_APP_BACKEND_URL}courses`,
+                `${process.env.REACT_APP_BACKEND_URL}/courses`,
                 {
                     method: "GET",
                     headers: {

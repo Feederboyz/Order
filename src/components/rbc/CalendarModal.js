@@ -84,7 +84,7 @@ function CalendarModal({
                 studentId: user.userId,
             };
             const response = await fetch(
-                `${process.env.REACT_APP_BACKEND_URL}/localhost:3080/enroll`,
+                `${process.env.REACT_APP_BACKEND_URL}/enroll`,
                 {
                     method: "POST",
                     headers: {

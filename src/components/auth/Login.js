@@ -46,7 +46,7 @@ export default function Login() {
         if (validateAccount()) {
             try {
                 const response = await fetch(
-                    `${process.env.REACT_APP_BACKEND_URL}auth`,
+                    `${process.env.REACT_APP_BACKEND_URL}/auth`,
                     {
                         method: "POST",
                         headers: {
