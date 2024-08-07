@@ -26,7 +26,7 @@ export default function CalendarWrapper() {
             setFilteredCourses(
                 courses.filter((course) => courseIdSet.has(course.id))
             );
-        } else if (tabType === "delete-class") {
+        } else if (tabType === "delete-class" || tabType === "edit-class") {
             setFilteredCourses(
                 courses.filter((course) => course.teacherId === user.userId)
             );
@@ -96,7 +96,11 @@ export default function CalendarWrapper() {
 
     const handleSelectEvent = useCallback(
         (calendarEvent) => {
-            if (tabType === "order-class" || tabType === "delete-class") {
+            if (
+                tabType === "order-class" ||
+                tabType === "delete-class" ||
+                tabType === "edit-class"
+            ) {
                 window.clearTimeout(clickRef?.current);
                 clickRef.current = window.setTimeout(() => {
                     setSelectedEvent(calendarEvent);
@@ -133,12 +137,15 @@ export default function CalendarWrapper() {
             "order-class",
             "delete-class",
             "my-class",
+            "edit-class",
         ].includes(tabType);
     }
     function tabType2Header(tabType) {
         switch (tabType) {
             case "open-class":
                 return "Open Class";
+            case "edit-class":
+                return "Edit Class";
             case "order-class":
                 return "Order Class";
             case "delete-class":

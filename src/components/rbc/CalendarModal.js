@@ -54,13 +54,16 @@ function CalendarModal({
                 endTime: data.endTime,
                 maxStudents: data.maxStudents,
             };
-            const response = await fetch("https://localhost:3080/courses", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(newCourse),
-            });
+            const response = await fetch(
+                `${process.env.REACT_APP_BACKEND_URL}/courses`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newCourse),
+                }
+            );
 
             if (response.ok) {
                 setCourses([...courses, newCourse]);
@@ -72,6 +75,54 @@ function CalendarModal({
         } catch (error) {
             console.error("Error:", error);
             alert("Error updating data");
+            handleModalClose();
+        }
+    };
+
+    const handleEditClass = async (event) => {
+        event.preventDefault();
+        console.log(selectedEvent.id);
+        console.log(selectedEvent.username);
+        console.log(selectedEvent.course_name);
+        console.log(selectedEvent.teacher_id);
+        console.log(selectedEvent.start_time);
+        console.log(selectedEvent.end_time);
+        console.log(selectedEvent.max_students);
+        try {
+            const newCourse = {
+                id: selectedEvent.id,
+                username: selectedEvent.username,
+                courseName: selectedEvent.courseName,
+                teacherId: selectedEvent.teacherId,
+                startTime: selectedEvent.startTime,
+                endTime: selectedEvent.endTime,
+                maxStudents: selectedEvent.maxStudents,
+            };
+            const response = await fetch(
+                `${process.env.REACT_APP_BACKEND_URL}/courses`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(),
+                }
+            );
+
+            if (response.ok) {
+                let newCourses = courses.filter(
+                    (course) => course.id !== selectedEvent.id
+                );
+                newCourses.push(newCourse);
+                setCourses(newCourses);
+                alert("Edit successful!");
+                handleModalClose();
+            } else {
+                throw new Error("Edit failed");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Edit failed");
             handleModalClose();
         }
     };
@@ -113,6 +164,8 @@ function CalendarModal({
             handleOpenClass(event);
         } else if (tabType === "order-class") {
             handleOrderClass(event);
+        } else if (tabType === "edit-class") {
+            handleEditClass(event);
         } else if (tabType === "delete-class") {
             handleDeleteClass(event);
         }
@@ -121,15 +174,18 @@ function CalendarModal({
     const handleDeleteClass = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch("https://localhost:3080/courses", {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    courseId: selectedEvent.id,
-                }),
-            });
+            const response = await fetch(
+                `${process.env.REACT_APP_BACKEND_URL}/courses`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        courseId: selectedEvent.id,
+                    }),
+                }
+            );
 
             if (response.ok) {
                 let newCourses = courses.filter(
@@ -151,7 +207,9 @@ function CalendarModal({
     let userTag = (
         <div>
             <label htmlFor="user">
-                {tabType === "open-class" || tabType === "delete-class"
+                {tabType === "open-class" ||
+                tabType === "delete-class" ||
+                tabType === "edit-class"
                     ? "Teacher"
                     : "Student"}
             </label>
@@ -178,7 +236,11 @@ function CalendarModal({
                 name="courseName"
                 value={selectedEvent && selectedEvent.courseName}
                 onChange={handleInputChange}
-                readOnly={tabType === "open-class" ? false : true}
+                readOnly={
+                    tabType === "open-class" || tabType === "edit-class"
+                        ? false
+                        : true
+                }
             />
         </div>
     );
@@ -191,7 +253,11 @@ function CalendarModal({
                 name="startTime"
                 value={selectedEvent && getIsoDate(selectedEvent.startTime)}
                 onChange={handleInputChange}
-                readOnly={tabType === "open-class" ? false : true}
+                readOnly={
+                    tabType === "open-class" || tabType === "edit-class"
+                        ? false
+                        : true
+                }
             />
         </div>
     );
@@ -204,7 +270,11 @@ function CalendarModal({
                 name="endTime"
                 value={selectedEvent && getIsoDate(selectedEvent.endTime)}
                 onChange={handleInputChange}
-                readOnly={tabType === "open-class" ? false : true}
+                readOnly={
+                    tabType === "open-class" || tabType === "edit-class"
+                        ? false
+                        : true
+                }
             />
         </div>
     );
@@ -219,7 +289,11 @@ function CalendarModal({
                 name="maxStudents"
                 value={selectedEvent && selectedEvent.maxStudents}
                 onChange={handleInputChange}
-                readOnly={tabType === "open-class" ? false : true}
+                readOnly={
+                    tabType === "open-class" || tabType === "edit-class"
+                        ? false
+                        : true
+                }
             />
         </div>
     );
