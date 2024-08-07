@@ -81,13 +81,6 @@ function CalendarModal({
 
     const handleEditClass = async (event) => {
         event.preventDefault();
-        console.log(selectedEvent.id);
-        console.log(selectedEvent.username);
-        console.log(selectedEvent.course_name);
-        console.log(selectedEvent.teacher_id);
-        console.log(selectedEvent.start_time);
-        console.log(selectedEvent.end_time);
-        console.log(selectedEvent.max_students);
         try {
             const newCourse = {
                 id: selectedEvent.id,
@@ -105,7 +98,7 @@ function CalendarModal({
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(),
+                    body: JSON.stringify(newCourse),
                 }
             );
 
