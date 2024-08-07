@@ -12,7 +12,6 @@ export default function Login() {
     const [submitError, setSubmitError] = useState("");
     const navigate = useNavigate();
     const { setUser } = useUser();
-    const BACKEND_URL = "https://localhost:3080/";
 
     const validateAccount = () => {
         setEmailError("");
@@ -46,13 +45,16 @@ export default function Login() {
         event.preventDefault();
         if (validateAccount()) {
             try {
-                const response = await fetch(`${BACKEND_URL}auth`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ email, password }),
-                });
+                const response = await fetch(
+                    `${process.env.REACT_APP_BACKEND_URL}auth`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ email, password }),
+                    }
+                );
 
                 const result = await response.json();
                 if (!response.ok) {

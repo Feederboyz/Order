@@ -159,7 +159,7 @@ export function LoginForm({
                             className={"authform__button"}
                             onClick={() => {
                                 window.open(
-                                    "https://localhost:3080/auth/google",
+                                    `${process.env.REACT_APP_BACKEND_URL}/auth/google`,
                                     "_blank",
                                     "width=600,height=600"
                                 );

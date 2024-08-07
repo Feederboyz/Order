@@ -83,13 +83,16 @@ function CalendarModal({
                 courseId: selectedEvent.id,
                 studentId: user.userId,
             };
-            const response = await fetch("https://localhost:3080/enroll", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(newEnrollment),
-            });
+            const response = await fetch(
+                `${process.env.REACT_APP_BACKEND_URL}/localhost:3080/enroll`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newEnrollment),
+                }
+            );
 
             if (response.ok) {
                 setEnroll([...enroll, newEnrollment]);

@@ -27,7 +27,7 @@ export default function Container() {
     // Get user data
     useEffect(() => {
         if (token) {
-            fetch("https://localhost:3080/profile", {
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/profile`, {
                 method: "GET",
                 credentials: "include",
                 headers: {

@@ -10,7 +10,7 @@ export default function AuthCode() {
     useEffect(() => {
         async function fetchToken(authCode) {
             const response = await fetch(
-                "https://localhost:3080/authcodeexchange",
+                `${process.env.REACT_APP_BACKEND_URL}/authcodeexchange`,
                 {
                     method: "POST",
                     headers: {
