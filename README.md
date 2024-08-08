@@ -1,10 +1,10 @@
 # Order
 ## 簡介
-[Order](https://client-eyi7.onrender.com/open-class) 讓你透過滑鼠點擊操作，來提供用戶方便的開課、選課及刪除課程功能。
+[Order](https://order-9gw6.onrender.com/) 讓你透過滑鼠點擊操作，來提供用戶方便的開課、選課及刪除課程功能。
 ![Example](/example.gif)
 
 ## 連結
-[Order](https://client-eyi7.onrender.com/open-class) 
+[Order](https://order-9gw6.onrender.com/) 
 
 ## 功能
 - 開課：允許用戶創建新課程
