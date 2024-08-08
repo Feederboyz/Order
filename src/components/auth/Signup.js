@@ -52,17 +52,20 @@ export default function Signup(props) {
         event.preventDefault();
         if (validateAccount()) {
             try {
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/signup`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ username, email, password }),
-                });
+                const response = await fetch(
+                    `${process.env.REACT_APP_BACKEND_URL}/signup`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ username, email, password }),
+                    }
+                );
 
                 const result = await response.json();
                 if (!response.ok) {
-                    alert("An error occurred. Please try again later.");ß
+                    alert("An error occurred. Please try again later.");
                     setSubmitError(result.message);
                 } else {
                     alert("Account created successfully.");
