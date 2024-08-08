@@ -52,7 +52,7 @@ export default function Signup(props) {
         event.preventDefault();
         if (validateAccount()) {
             try {
-                const response = await fetch("https://localhost:3080/signup", {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/signup`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
