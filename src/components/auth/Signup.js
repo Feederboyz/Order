@@ -62,14 +62,15 @@ export default function Signup(props) {
 
                 const result = await response.json();
                 if (!response.ok) {
-                    console.log("Error", result);
+                    alert("An error occurred. Please try again later.");ß
                     setSubmitError(result.message);
                 } else {
-                    console.log("Success", result);
+                    alert("Account created successfully.");
                     navigate("/login");
                 }
             } catch (error) {
                 console.error("Error:", error);
+                alert("An error occurred. Please try again later.");
                 navigate("/");
             }
         }
